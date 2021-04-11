@@ -3,8 +3,8 @@
  */
 const gitalkConfig = {
     // remote
-    clientID: '0c1bebfe0ee17ef36a6d',
-    clientSecret: 'c7e508fd3f4243f9c79262f4414ec80ef6010af6',
+    clientID: '50e63856383f4a81af4e',
+    clientSecret: 'd3263b6cb7532513169b78c73d72031392dac847',
     repo: 'blog',
     owner: 'X-TAN',
     admin: ['X-TAN'],
