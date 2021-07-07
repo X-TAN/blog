@@ -1,9 +1,3 @@
-- **mysql**
-  - [test](mysql/test.md)
-- **redis**
-  - [test](redis/test.md)
-- **mq**
-  - [test](mq/test.md)
-- **网络**
-  - [test](net/test.md)
+- **doc**
+  - [目录](doc/目录.md)
 
