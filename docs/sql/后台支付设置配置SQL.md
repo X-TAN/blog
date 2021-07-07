@@ -4,16 +4,16 @@
 ```sql
 DROP TABLE IF EXISTS `recharge_method`;
 CREATE TABLE `recharge_method`  (
-                                    `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '充值方式id',
-                                    `platform_or_site_id` int(0) NOT NULL COMMENT '管理，平台，站点的id(为0是管理的默认id)',
-                                    `user_type` tinyint(1) NOT NULL COMMENT '用户类型 1-管理，2-平台，3-站点',
-                                    `method` tinyint(1) NOT NULL COMMENT '充值方式 1支付宝扫码，2-支付宝支付，3微信 4QQ',
-                                    `method_type` tinyint(1) NOT NULL COMMENT 'method的附属字段，1-官方，2-易支付,3-码支付',
-                                    `selected` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否选中，0-未选中，1-选中',
-                                    `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-                                    `update_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
-                                    PRIMARY KEY (`id`) USING BTREE,
-                                    UNIQUE INDEX ```platform_id``, ``user_type``, ``method``, ``method_type```(`platform_or_site_id`, `user_type`, `method`, `method_type`) USING BTREE
+`id` int(0) NOT NULL AUTO_INCREMENT COMMENT '充值方式id',
+`platform_or_site_id` int(0) NOT NULL COMMENT '管理，平台，站点的id(为0是管理的默认id)',
+`user_type` tinyint(1) NOT NULL COMMENT '用户类型 1-管理，2-平台，3-站点',
+`method` tinyint(1) NOT NULL COMMENT '充值方式 1支付宝扫码，2-支付宝支付，3微信 4QQ',
+`method_type` tinyint(1) NOT NULL COMMENT 'method的附属字段，1-官方，2-易支付,3-码支付',
+`selected` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否选中，0-未选中，1-选中',
+`create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+`update_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
+PRIMARY KEY (`id`) USING BTREE,
+UNIQUE INDEX ```platform_id``, ``user_type``, ``method``, ``method_type```(`platform_or_site_id`, `user_type`, `method`, `method_type`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '充值方式表' ROW_FORMAT = Dynamic;
 ```
 
