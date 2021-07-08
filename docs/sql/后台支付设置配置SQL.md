@@ -21,31 +21,36 @@ UNIQUE INDEX ```platform_id``, ``user_type``, ``method``, ``method_type```(`plat
 ```sql
 DROP TABLE IF EXISTS `recharge_method_alipay_sign_record`;
 CREATE TABLE `recharge_method_alipay_sign_record`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '记录id',
-  `recharge_method_id` int(0) NOT NULL COMMENT '充值方式id',
-  `merchant_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商户的姓名',
-  `merchant_alias_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商户的别名(显示在用户支付订单详情内的收款人名称)',
-  `merchant_mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商户手机号',
-  `merchant_alipay_account` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商户对应该充值方式的账号（如果是支付宝则为支付宝账号，如果是微信则为微信账号）',
-  `merchant_license_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '商户与营业执照编号',
-  `merchant_id_card_no` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '商户身份证',
-  `merchant_mcc_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商户经营的类别码',
-  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '停用-0，启用-1',
-  `sign_status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '代签状态 -1 失败，0-未签约，1-签约成功',
-  `level` tinyint(1) NOT NULL COMMENT '1-个人，2-个体工商户，3-企业',
-  `token_expires_time` datetime(0) NULL DEFAULT NULL COMMENT '签约成功后凭证的过期时间',
-  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '商户签约成功的凭证',
-  `legal_person_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '法人名称',
-  `legal_person_id_card_no` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '法人身份证号码',
-  `message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '签约返回的消息',
-  `day_limit_amount` decimal(11, 2) NOT NULL COMMENT '日限制最大金额(单位分)',
-  `mouth_limit_amount` decimal(11, 2) NOT NULL COMMENT '月限制最大金额（单位分）',
-  `total_amount` decimal(11, 2) NOT NULL COMMENT '累计收款（单位分）',
-  `sign_time` datetime(0) NULL DEFAULT NULL COMMENT '商户发起签约的时间',
-  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '记录的创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '记录的修改时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '支付宝扫码签约记录表' ROW_FORMAT = Dynamic;
+`id` int(0) NOT NULL AUTO_INCREMENT COMMENT '记录id',
+`recharge_method_id` int(0) NOT NULL COMMENT '充值方式id',
+`merchant_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商户的姓名',
+`merchant_alias_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商户的别名(显示在用户支付订单详情内的收款人名称)',
+`merchant_mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商户手机号',
+`merchant_alipay_account` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商户对应该充值方式的账号（如果是支付宝则为支付宝账号，如果是微信则为微信账号）',
+`merchant_license_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '商户与营业执照编号',
+`merchant_id_card_no` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '商户身份证',
+`merchant_mcc_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商户经营的类别码',
+`alipay_user_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '支付宝返回的授权商户的用户id,2088开头',
+`status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '停用-0，启用-1',
+`sign_status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '代签状态 -1 失败，0-未签约，1-签约中，2-待商户确认，3-签约成功',
+`level` tinyint(1) NOT NULL COMMENT '1-个人，2-个体工商户，3-企业',
+`auth_app_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '支付宝授权确认后，返回的商户APPid',
+`token_expires_time` datetime(0) NULL DEFAULT NULL COMMENT '签约成功后凭证的过期时间',
+`token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '商户签约成功的凭证',
+`legal_person_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '法人名称',
+`legal_person_id_card_no` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '法人身份证号码',
+`message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '签约返回的消息',
+`day_limit_amount` decimal(11, 2) NOT NULL COMMENT '日限制最大金额(单位分)',
+`mouth_limit_amount` decimal(11, 2) NOT NULL COMMENT '月限制最大金额（单位分）',
+`total_amount` decimal(11, 2) NOT NULL COMMENT '累计收款（单位分）',
+`sign_time` datetime(0) NULL DEFAULT NULL COMMENT '商户发起签约的时间',
+`confirm_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '商户确认签约的地址',
+`batch_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '支付宝的签约批号',
+`create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '记录的创建时间',
+`update_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '记录的修改时间',
+PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '支付宝扫码签约' ROW_FORMAT = Dynamic;
+
 ```
 
 ### 充值方式商户记录表
